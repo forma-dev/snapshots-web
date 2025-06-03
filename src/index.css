@@ -81,6 +81,27 @@ body {
   border: 1px solid #1aad2b;
 }
 
+.titlebar-links {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  gap: 12px;
+}
+
+.titlebar-link {
+  color: #888;
+  text-decoration: none;
+  font-size: 0.9em;
+  transition: color 0.2s;
+}
+
+.titlebar-link:hover {
+  color: #00ff00;
+  text-shadow: 0 0 3px #00ff00;
+}
+
 /* ASCII Borders */
 .ascii-border-top,
 .ascii-border-bottom {

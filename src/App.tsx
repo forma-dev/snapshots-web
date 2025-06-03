@@ -10,6 +10,24 @@ function App() {
     setRefreshKey((prev) => prev + 1);
   };
 
+  const titlebarLinks = [
+    {
+      label: 'GitHub',
+      title: 'View source on GitHub',
+      href: 'https://github.com/forma-dev/snapshots-web',
+    },
+    {
+      label: 'Docs',
+      title: 'View documentation',
+      href: 'https://docs.forma.art',
+    },
+    {
+      label: 'Discord',
+      title: 'Join our Discord',
+      href: 'https://discord.gg/cfHDU8k7FQ',
+    },
+  ];
+
   return (
     <div className="terminal-window">
       <div className="terminal-titlebar">
@@ -18,7 +36,21 @@ function App() {
           <div className="minimize-btn"></div>
           <div className="maximize-btn"></div>
         </div>
-        <span>forma-snapshots-terminal v0.1.0</span>
+        <span>forma-snapshots-terminal v1.0.0</span>
+        <div className="titlebar-links">
+          {titlebarLinks.map((link) => (
+            <a
+              key={link.label}
+              href={link.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="titlebar-link"
+              title={link.title}
+            >
+              [{link.label}]
+            </a>
+          ))}
+        </div>
       </div>
       <div className="container">
         <header className="header">
