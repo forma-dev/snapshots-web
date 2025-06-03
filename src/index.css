@@ -1,0 +1,384 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Courier New', 'Monaco', 'Menlo', monospace;
+  background-color: #000;
+  color: #00ff00;
+  line-height: 1.4;
+  min-height: 100vh;
+  background-image: 
+    radial-gradient(circle at 1px 1px, rgba(0, 255, 0, 0.1) 1px, transparent 0);
+  background-size: 20px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+/* Terminal Window Container */
+.terminal-window {
+  display: flex;
+  flex-direction: column;
+  max-width: 1200px;
+  width: calc(100vw - 40px);
+  margin: 20px;
+  background-color: #0a0a0a;
+  border: 2px solid #00ff00;
+  border-radius: 0;
+  box-shadow: 
+    0 0 24px rgba(0, 255, 0, 0.15),
+    0 0 60px rgba(0, 255, 0, 0.08),
+    0 0 250px rgba(0, 255, 0, 0.04),
+    0 0 500px rgba(255, 255, 255, 0.04),
+    inset 0 0 20px rgba(0, 255, 0, 0.05);
+}
+
+/* Terminal Title Bar */
+.terminal-titlebar {
+  background-color: #1a1a1a;
+  border-bottom: 1px solid #00ff00;
+  padding: 8px 16px;
+  font-size: 0.9em;
+  color: #888;
+  text-align: center;
+  position: relative;
+}
+
+.terminal-controls {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  gap: 6px;
+}
+
+.terminal-controls .close-btn {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: #ff5f56;
+  border: 1px solid #e0443e;
+}
+
+.terminal-controls .minimize-btn {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: #ffbd2e;
+  border: 1px solid #dea123;
+}
+
+.terminal-controls .maximize-btn {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: #27ca3f;
+  border: 1px solid #1aad2b;
+}
+
+/* ASCII Borders */
+.ascii-border-top,
+.ascii-border-bottom {
+  font-family: 'Courier New', monospace;
+  color: #00ff00;
+  font-size: 0.8em;
+  letter-spacing: 0;
+  line-height: 1;
+  white-space: pre;
+  overflow: hidden;
+}
+
+.ascii-border-top {
+  border-bottom: 1px solid #333;
+  margin-bottom: 15px;
+}
+
+.ascii-border-bottom {
+  border-top: 1px solid #333;
+  margin-top: 15px;
+}
+
+/* Container */
+.container {
+  padding: 20px;
+}
+
+/* Header Styling */
+.header {
+  margin-bottom: 20px;
+}
+
+.title {
+  font-size: 1.8em;
+  margin: 0 0 10px 0;
+  color: #00ff00;
+  text-shadow: 0 0 3px #00ff00;
+  font-weight: normal;
+}
+
+.prompt {
+  color: #00ff00;
+  margin-right: 8px;
+  font-weight: bold;
+}
+
+.cursor {
+  animation: blink 1s infinite;
+  color: #00ff00;
+  margin-left: 2px;
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+.subtitle {
+  margin: 5px 0 0 0;
+  color: #888;
+  font-size: 0.9em;
+}
+
+/* Path/Directory Display */
+.path-container {
+  background-color: #111;
+  border: 1px solid #333;
+  margin: 20px 0;
+  font-family: inherit;
+  color: #00ff00;
+}
+
+.path-header {
+  background-color: #1a1a1a;
+  padding: 8px 15px;
+  border-bottom: 1px solid #333;
+  font-size: 0.9em;
+  color: #888;
+}
+
+.path-content {
+  padding: 12px 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.path-text {
+  color: #00ff00;
+  text-shadow: 0 0 2px #00ff00;
+}
+
+.refresh-btn {
+  padding: 6px 12px;
+  background: #1a1a1a;
+  border: 1px solid #00ff00;
+  color: #00ff00;
+  font-family: inherit;
+  cursor: pointer;
+  font-size: 0.8em;
+  transition: all 0.2s;
+}
+
+.refresh-btn:hover {
+  background-color: #00ff00;
+  color: #000;
+  box-shadow: 0 0 5px #00ff00;
+}
+
+/* Loading State */
+.loading {
+  color: #ffff00;
+  text-align: center;
+  padding: 40px;
+  font-size: 1.1em;
+  text-shadow: 0 0 3px #ffff00;
+}
+
+.loading-spinner {
+  display: inline-block;
+  margin-left: 10px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { content: '|'; }
+  25% { content: '/'; }
+  50% { content: '—'; }
+  75% { content: '\\'; }
+  100% { content: '|'; }
+}
+
+/* Error State */
+.error {
+  color: #ff5555;
+  background-color: #2a0a0a;
+  padding: 20px;
+  border: 1px solid #ff5555;
+  margin: 20px 0;
+  text-shadow: 0 0 3px #ff5555;
+}
+
+.error::before {
+  content: '[ERROR] ';
+  font-weight: bold;
+}
+
+/* File List Container */
+.file-list-container {
+  background-color: #0a0a0a;
+  border: 1px solid #333;
+}
+
+.file-list-header {
+  background-color: #1a1a1a;
+  padding: 10px 15px;
+  border-bottom: 1px solid #333;
+  font-size: 0.9em;
+  color: #888;
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 15px;
+}
+
+.file-list-header span:nth-child(1) {
+  text-align: left;
+}
+
+.file-list-header span:nth-child(2) {
+  text-align: right;
+  min-width: 80px;
+}
+
+.file-list-header span:nth-child(3) {
+  text-align: right;
+  min-width: 150px;
+}
+
+.file-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.file-item {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 15px;
+  align-items: center;
+  padding: 10px 15px;
+  border-bottom: 1px solid #222;
+  transition: background-color 0.2s;
+}
+
+.file-item:hover {
+  background-color: #1a1a1a;
+  box-shadow: inset 3px 0 0 #00ff00;
+}
+
+.file-name {
+  color: #00ff00;
+  text-decoration: none;
+  font-weight: normal;
+  transition: all 0.2s;
+  display: inline-block;
+  width: fit-content;
+}
+
+.file-name:hover {
+  color: #00ffff;
+  text-shadow: 0 0 3px #00ffff;
+  text-decoration: none;
+}
+
+.file-size {
+  text-align: right;
+  color: #888;
+  font-size: 0.9em;
+  min-width: 80px;
+}
+
+.file-date {
+  text-align: right;
+  color: #888;
+  font-size: 0.9em;
+  min-width: 150px;
+}
+
+/* Stats Section */
+.stats {
+  background-color: #111;
+  border-top: 1px solid #333;
+  padding: 15px;
+  color: #888;
+  font-size: 0.9em;
+}
+
+.stats-line {
+  margin: 2px 0;
+}
+
+.stats-line::before {
+  content: '> ';
+  color: #00ff00;
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  color: #888;
+  padding: 60px 20px;
+  font-style: italic;
+}
+
+.empty-state::before {
+  content: '[INFO] ';
+  color: #ffff00;
+  font-style: normal;
+}
+
+/* Terminal Scroll Effect */
+.container {
+  animation: terminalBoot 0.5s ease-out;
+}
+
+@keyframes terminalBoot {
+  0% {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  body {
+    padding: 10px;
+  }
+  
+  .file-item {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  
+  .file-list-header {
+    grid-template-columns: 1fr;
+    gap: 5px;
+  }
+  
+  .file-size,
+  .file-date {
+    display: none;
+  }
+  
+  .title {
+    font-size: 1.4em;
+  }
+}
